@@ -9,11 +9,11 @@ A simplest and basic example that illustrate how to handle authentication and au
 
 ### Installation
 #### Setting up
-Dependencies are enlisted in packages.json under "api" directory. To install the dependencies, follow below steps
+Dependencies are enlisted in packages.json. To install the dependencies, follow below steps
 ```sh
 $ npm i
 ```
-One the dependencies are installed, use the following command in root directory to start the project on localhost.
+Once the dependencies are installed, use the following command to start the ExpressJS Server.
 ```sh
 $ npm run start
 ```
