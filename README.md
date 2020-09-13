@@ -1,5 +1,5 @@
 # ExpressJS Authentication & Authorization Example
-A simplest and basic example that illustrate how handle authentication and authorization in ExpressJS using JWT.
+A simplest and basic example that illustrate how handle authentication and authorization in ExpressJS using JWT. Followings are the main topics
  - ExpressJS REST Api.
  - Utilising JWT.
  - Middlewares in ExpressJS.
