@@ -8,7 +8,7 @@ A simplest and basic example that illustrate how handle authentication and autho
  
 
 ### Installation
-#### Setting up API (back-end)
+#### Setting up
 Dependencies are enlisted in packages.json under "api" directory. To install the dependencies, follow below steps
 ```sh
 $ npm i
