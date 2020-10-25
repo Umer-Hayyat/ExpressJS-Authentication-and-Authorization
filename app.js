@@ -5,10 +5,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 
-var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
-
 var authentication = require("./utils/authentication");
 
 var app = express();
@@ -21,16 +19,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // attach custom variable, this probably would be a user after authentication
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
 
-  if (req.path.indexOf("login") > -1) {
+  //by pass authentication and authorization on "GetToken"
+  if (req.path.indexOf("GetToken") > -1) {
     next();
   } else {
     let authorization = req.headers.authorization
       ? req.headers.authorization.split(" ")[1]
       : "";
     try {
-      let jwt = authentication.checkIfUserVerified(authorization);
+      let jwt = null;
+
+      //check if JWT is passed, validate it and throw error if validation fails.
+      if (!!authorization)
+        jwt = authentication.checkIfUserVerified(authorization);
+      else
+        throw Error("JWT is missing");
+
 
       if (jwt && !!jwt.sub) {
         res.locals.user = {
@@ -40,10 +46,10 @@ app.use(function (req, res, next) {
 
         next();
       } else {
-        throw Error("JWT missing");
+        throw Error("User is unauthorized");
       }
-    } catch {
-      res.redirect("~/login");
+    } catch (err) {
+      throw err;
     }
   }
 });
@@ -52,13 +58,13 @@ app.use("/", authRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-  res.send(createError(401, "user unauthorized"));
+app.use((err, req, res, next) => {
+  res.send(createError(401, err.message));
 });
 
 module.exports = app;
