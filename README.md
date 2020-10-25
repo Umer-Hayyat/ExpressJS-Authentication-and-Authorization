@@ -17,6 +17,7 @@ Once the dependencies are installed, use the following command to start the Expr
 ```sh
 $ npm run start
 ```
+or simply hit "F5" to start VSCode debugging.
 
 License
 ----
